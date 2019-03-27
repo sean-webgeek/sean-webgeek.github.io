@@ -1,0 +1,158 @@
+h1 {
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+}
+
+.robots {
+}
+
+.head, 
+.left_arm, 
+.torso, 
+.right_arm, 
+.left_leg, 
+.right_leg {
+	 background-color: #5f93e8;
+}
+
+.head { 
+	width: 200px; 
+	margin: 0 auto; 
+	height: 150px; 
+	border-radius: 200px 200px 0 0; 
+	margin-bottom: 10px;
+	/* added flex controls to the head so the eyes move when the head adjusts size */
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-end;
+	transition: 1s ease-in-out;
+} 
+
+.eyes {
+	/*removed this div */
+}
+
+.head:hover {
+	width: 300px;    
+}
+
+.upper_body { 
+	width: 300px; 
+	height: 150px;
+	margin: 0 auto;
+	display: flex; 
+} 
+
+.left_arm, .right_arm { 
+	width: 40px; 
+	height: 125px;
+	border-radius: 100px; 
+	/* added transition for arm animation */
+	transition: 1s ease-out;
+	/* changed the point of origin for the rotation to be around the shoulder not elbow */
+	-webkit-transform-origin: 50% 15%;
+    -moz-transform-origin: 50% 15%;
+    -o-transform-origin: 50% 15%;
+    -ms-transform-origin: 50% 15%;
+    transform-origin: 50% 15%;
+} 
+
+.left_arm { 
+	margin-right: 10px; 
+} 
+.left_arm:hover {
+	/* added an arm rotation upon hover */
+	-webkit-transform: rotate(60deg);
+    -moz-transform: rotate(60deg);
+    -o-transform: rotate(60deg);
+    -ms-transform: rotate(60deg);
+    transform: rotate(60deg);
+}
+
+.right_arm { 
+	margin-left: 10px; 
+} 
+.right_arm:hover {
+	-webkit-transform: rotate(-60deg);
+    -moz-transform: rotate(-60deg);
+    -o-transform: rotate(-60deg);
+    -ms-transform: rotate(-60deg);
+    transform: rotate(-60deg);
+}
+
+.torso { 
+	width: 200px; 
+	height: 200px;
+	border-radius: 0 0 50px 50px; 
+} 
+
+.lower_body { 
+	width: 200px; 
+	height: 200px;
+	margin: 0 auto;
+	display: flex;
+} 
+
+.left_leg, .right_leg { 
+	width: 40px; 
+	height: 120px;
+	border-radius: 0 0 100px 100px; 
+	/* added transition to the leg animation */
+	transition: 0.2s ease-out;
+	/* changed the point of origin for the rotate */
+	-webkit-transform-origin: 50% 15%;
+    -moz-transform-origin: 50% 15%;
+    -o-transform-origin: 50% 15%;
+    -ms-transform-origin: 50% 15%;
+    transform-origin: 50% 15%;
+} 
+
+.left_leg { 
+	margin-left: 45px; 
+} 
+.left_leg:hover {
+	-webkit-transform: rotate(20deg);
+    -moz-transform: rotate(20deg);
+    -o-transform: rotate(20deg);
+    -ms-transform: rotate(20deg);
+    transform: rotate(20deg);
+}
+
+.right_leg { 
+	margin-left: 30px; 
+}
+/* the right leg felt left out so now he can dance also */
+.right_leg:hover {
+	-webkit-transform: rotate(-20deg);
+    -moz-transform: rotate(-20deg);
+    -o-transform: rotate(-20deg);
+    -ms-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+}
+
+.left_eye, .right_eye { 
+	width: 20px; 
+	height: 20px; 
+	border-radius: 15px; 
+	background-color: white; 
+	/* added the margin so eyes dont sit at bottom of the head */
+	margin-bottom: 40px; 
+} 
+
+.left_eye { 
+	/* These alignments are not needed as they were static upon head animation and now they use flexbox relative to the head
+	position: relative; 
+	top: 100px; 
+	left: 40px; */
+} 
+
+.right_eye { 
+/*	position: relative; 
+	top: 100px; 
+	left: 120px; */
+}
+
+
+
+
+

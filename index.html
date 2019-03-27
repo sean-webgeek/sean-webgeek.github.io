@@ -1,0 +1,685 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<title>Sean Jones' Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="This is Sean Jones' Portfolio showcasing his experience and talents in Front-End Web Development">
+
+<!-- W3.CSS stylesheet -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Favicon -Touch Icons - iOS and Android 2.1+ 64x64 pixels in size. --> 
+<link rel="apple-touch-icon-precomposed" href="images/favicon.ico">
+<!-- Favicon on web browsers 64x64 pixels in size. -->
+<link rel="icon" href="images/favicon.ico">
+
+<style>
+  body, h1,h2,h3,h4,h5,h6 {font-family: 'Montserrat', sans-serif}
+  .w3-row-padding img {margin-bottom: 12px}
+  /* Set sidebar width to 120px and ensure "page content left margin matches */
+  .w3-sidebar {width: 120px}
+  #main {margin-left: 120px}
+  /* Remove margins from "page content" on small screens */
+  @media only screen and (max-width: 600px) {#main {margin-left: 0}}
+  
+  /* load Game-Over font */
+  @font-face {
+    font-family:"Game Over";
+    src:url("font/game_over.eot?") format("eot"),
+        url("font/game_over.woff") format("woff"),
+        url("font/game_over.ttf") format("truetype"),
+        url("font/game_over.svg#Game-Over") format("svg");
+    font-weight:normal;
+    font-style:normal;
+  }
+  /* Apply 8-bit game font to text */
+  .game-text {font-family:'Game Over'}
+  
+  .content {max-width:980px;}
+  
+  /* Hide element and label it for Jquery animation trigger when in view */
+  .animated {visibility:hidden} 
+  
+  /* page loader class */
+  #loader {
+    position:relative;
+    height: 100vh;
+  }  
+  #loader button {
+    position:absolute;
+	display:inline-block;	
+	top:50%; left:50%;
+	transform: translate(-50%, -50%);	
+	margin:0; 
+	padding:0 25px 35px 25px;
+	border: 4px #d2be0e solid; outline:0;
+	background-color: #000;
+	color:rgb(255,235,8);
+	letter-spacing:6px;
+	line-height: 50%;
+	font-size:9em;
+	text-decoration:none;
+	cursor:pointer;
+  }
+  #loader button:active {background-color:rgba(255,8,3,0.8);}
+  
+  /* set home screen to height of screen and will change if orientation changes */
+  #home {height:100vh;}
+  #home a:hover {background-color:rgb(34,34,34);}
+  nav {height:100vh;}  
+  .gray {background-color:rgb(34,34,34);}
+ 
+  .title-container {
+	 position:relative;
+	 margin:0; padding:0;
+  }
+  .title {
+    font: italic small-caps 900 9em Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(255,235,8);
+    padding-top:0;
+    margin: 0 5px 0px 20px;
+    /* Shadow effect on title */
+    text-shadow:
+      -0.01em 0.01em rgba(0,0,0,0.4), 
+      0.01em -0.01em rgba(0,0,0,0.4),
+      -0.06em 0.04em rgba(244,8,3,0.8), 
+      -0.07em 0.05em rgba(0,0,0,0.3),
+      -0.08em 0.06em 1px rgba(244,67,54,0.15);
+    /* Skew angle of title */
+    transform:skewY(-4deg);
+    border-bottom: 2px white solid;
+  }
+  @media (min-width:601px) {
+	h1.title::before { 
+      content: "The";    
+      position:absolute;
+      top:30%; left:-1.6em;
+      font: italic small-caps 600 0.13em Verdana, Geneva, Tahoma, sans-serif; 
+      color: rgb(251,251,251);
+      letter-spacing: 0.1em;
+      /* Remove inherited text-shadow */
+      text-shadow:-0.01em 0.01em rgb(001,001,001);
+      /* Remove inherited skew transform */
+      transform:skewY(4deg);    
+    } 
+  }
+  @media (max-width:601px) {
+	h1.title::before { 
+      content: "The";    
+      position:absolute;
+      top:13%; left:15%;
+      font: italic small-caps 300 0.18em Verdana, Geneva, Tahoma, sans-serif;
+      border-bottom: 1px rgb(253,253,253) solid; 
+      color: rgb(251,251,251);
+      letter-spacing: 0.1em;
+      /* Remove inherited text-shadow */
+      text-shadow:-0.01em 0.01em rgb(1,1,1);
+      /* Remove inherited skew transform */
+      transform:skewY(4deg);   
+    }	
+  }
+  .title-text {
+    font: normal small-caps 500 1.5em Verdana, Geneva, Tahoma, sans-serif; 
+    color: rgb(253,253,253);   
+    letter-spacing: 0.1em;
+    padding-top: 5%;
+    margin-bottom:0;
+  } 
+  /* change title font size depending on screen size */
+  @media (min-width:993px){
+    .title{font-size:9em}
+  }
+  @media (max-width:992px) and (min-width:601px){
+    .title{font-size:7em}
+  }
+  @media (max-width:992px){
+    .title {font-size:4em}
+	.title-text {font-size:2em;}
+  } 
+</style>
+
+<!-- INT JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<!-- INT reCaptcha -->
+<script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+
+<body class="w3-black">
+
+<!-- loading page -->
+<div id="loader">
+  <button name="loadBtn" type="button" value="INSERT COIN" class="game-text">INSERT COIN</button>
+</div>
+
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center w3-hide w3-animate-left gray">
+  <!-- Avatar image in top left corner -->
+  <img src="images/sean_picture_small.png" alt="menu avatar image" class="w3-opacity-min w3-image w3-padding-top">
+  <a href="#home" class="w3-bar-item w3-button w3-padding-large w3-hover-black w3-black w3-margin-top">
+    <i class="fa fa-home w3-xxlarge"></i><br>HOME</a>
+  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-user w3-xxlarge"></i><br>ABOUT</a>
+  <a href="#work" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-eye w3-xxlarge"></i><br>MY WORK</a>
+  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <i class="fa fa-envelope w3-xxlarge"></i><br>CONTACT</a>
+</nav>
+
+<!-- Navbar on small screens (Hidden on medium and large screens) -->
+<div id="myNavbar" class="w3-top w3-hide-large w3-hide-medium w3-hide w3-animate-top" style="position:fixed;">
+  <div class="w3-bar w3-light-gray w3-opacity-min w3-hover-opacity-off w3-center w3-small">
+    <a href="#home" class="w3-bar-item w3-button w3-black" style="width:25% !important">HOME</a>
+    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
+    <a href="#work" class="w3-bar-item w3-button" style="width:25% !important">WORK</a>
+    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
+  </div>
+</div>
+
+<!-- Page Content -->
+<div class="w3-hide w3-animate-right" id="main">
+  <!-- Header/Home -->
+  <header id="home" class="w3-display-container w3-center w3-black">
+    <div class="w3-display-middle w3-container">
+      <p class="title-text">Sean Jones presents&hellip;</p>
+      <div class="title-container">
+        <h1 class="title">Portfolio</h1>
+      </div>
+      <p class="title-text">Front End Web Developer</p>
+    </div>  
+    <div class="w3-display-bottomleft w3-cell-row w3-container gray w3-center">
+      <div class="w3-padding-bottom">
+        <a href="#about" class="w3-button w3-circle w3-ripple w3-black w3-hover-gray" style="margin-top:-2em;"><i class="fa fa-caret-down w3-xxlarge"></i></a>
+      </div>      
+    </div> 
+  </header>
+
+  <!-- About Section -->
+  
+  
+  <!-- CHANGE EVERYTHING -->
+  
+  
+  <section id="about" class="w3-container w3-content w3-text-grey w3-padding-64">
+    <h2 class="w3-text-light-grey">About Me</h2>
+    <hr style="width:200px" class="w3-opacity">
+    
+    <p class="w3-justify">My hands are up! I confess! I&acute;m a geek, and you know what, I&acute;m proud of it!</p>
+    <p class="w3-justify">I have been into Tech and games since I could use my hands. Pokémon Red on the Gameboy, GoldenEye on the N-64, I built my first computer when I was 16. I subscribe to some comic&acute;s, The Flash being an all time favourite, imagine how much you could do with that speed!</p>
+    <p class="w3-justify">I have a super logical mind, I&acute;m very intuitive and a little bit of a perfectionist. All of this makes me an excellent problem solver and the most likely reason why I enjoy programming and RPG&acute;s so much, they are both a big puzzle. I was even ranked whilst playing 
+	WarCraft III online.</p>
+    <p class="w3-justify">I&acute;ve been programming since college, I dipped my toes into VB programming and went onto University at Preston and studied Computer Game Development. This showed me an array of different aspects of what programming can actually do. After 
+	University I found myself getting stranded at a dead-end job. Then as if a lantern in a dark wood, I was asked by someone if I knew anything about computers and if I could maintain his website. I accepted it as a challenge more than anything and found myself enjoying playing around behind the scenes of a website.</p>
+    <p class="w3-justify">I then started some self learning whilst working full-time and now 
+	supporting a new family, I became a very busy man but determined. I did an online course and also a part time evening course at a local college in Web Development. I enjoy the fact that the Internet, like computers, is ever evolving. There will always be new things to learn, keeping me on my toes to stay up to date.</p>
+    <p class="w3-justify">The last few years have seen my life flipped upside down, it&acute;s not about me anymore, I have a daughter now! In 2013 we had Freja. She is totally nuts, but it&acute;s awesome to watch her develop into her own little self, may be one day she will be a geek like me. :)</p>
+     
+    <!-- skill bars -->
+    
+    <!-- CHANGE TO CELL's -->
+    
+    <h2 class="w3-padding-16 w3-text-light-grey">My Skills</h2>
+    <p class="w3-xlarge w3-text-cyan">The Essentials:</p>
+    <!-- skill bars - add .animate to add animation hen on screen -->
+    <section id="skillbars">
+      <p class="w3-wide animated">Brew Making</p>
+      <div class="animated w3-white w3-large w3-wide">
+        <div class="w3-dark-grey w3-text-cyan w3-center w3-hover-cyan" style="height:28px;width:100%">100%</div>
+      </div>
+      <p class="w3-wide animated">HTML5</p>
+      <div class="animated w3-white w3-large w3-wide">
+        <div class="w3-dark-grey w3-text-cyan w3-center w3-hover-cyan" style="height:28px;width:90%">90%</div>
+      </div>
+      <p class="w3-wide animated">CSS3</p>
+      <div class="animated w3-white w3-large w3-wide">
+        <div class="w3-dark-grey w3-text-cyan w3-center w3-hover-cyan" style="height:28px;width:85%">85%</div>
+      </div>
+      <p class="w3-wide animated">JavaScript</p>
+      <div class="animated w3-white w3-large w3-wide">
+        <div class="w3-dark-grey w3-text-cyan w3-center w3-hover-cyan" style="height:28px;width:65%">65%</div>
+      </div>
+      <p class="w3-wide animated">PHP</p>
+      <div class="animated w3-white w3-large w3-wide">
+        <div class="w3-dark-grey w3-text-cyan w3-center w3-hover-cyan" style="height:28px;width:40%">40%</div>
+      </div>
+      <p class="w3-wide animated">Responsive Design</p>
+      <div class="animated w3-white w3-large w3-wide">
+        <div class="w3-dark-grey w3-text-cyan w3-center w3-hover-cyan" style="height:28px;width:70%">70%</div>
+      </div>
+    </section><!-- end #skillbars -->
+    
+    <!-- extras -->
+    <p class="w3-xlarge w3-mrgin-top w3-padding-top w3-text-cyan">API&acute;s &amp; Extras:</p>
+    <div class="w3-row w3-center w3-padding-16 w3-section w3-black">
+      <section class="w3-col l3 m4 s6 w3-section w3-panel animated" style="min-height:80px;">
+        <span class="w3-xlarge w3-hide-medium w3-hide-small">Bootstrap / W3.CSS<br><small class="w3-text-yellow">Ninja</small></span>
+        <span class="w3-hide-large">Bootstrap / W3.CSS<br><small class="w3-text-yellow">Ninja</small></span>
+      </section>
+      <section class="w3-col l3 m4 s6 w3-section w3-panel animated" style="min-height:80px;">
+        <span class="w3-xlarge w3-hide-medium w3-hide-small">JQuery<br><small class="w3-text-yellow">Got Skills</small></span>
+        <span class="w3-hide-large">JQuery<br><small class="w3-text-yellow">Got Skills</small></span>
+      </section>
+      <section class="w3-col l3 m4 s6 w3-section w3-panel animated" style="min-height:80px;">
+        <span class="w3-xlarge w3-hide-medium w3-hide-small">AngularJS<br><small class="w3-text-yellow">Newbie</small></span>
+        <span class="w3-hide-large">AngularJS<br><small class="w3-text-yellow">Newbie</small></span>
+      </section>
+      <section class="w3-col l3 m4 s6 w3-section w3-panel animated" style="min-height:80px;">
+        <span class="w3-xlarge w3-hide-medium w3-hide-small">Photoshop<br><small class="w3-text-yellow">Got Skills</small></span>
+        <span class="w3-hide-large">Photoshop<br><small class="w3-text-yellow">Got Skills</small></span>        
+      </section>
+    </div><!-- end extras -->
+
+    <div class="w3-center w3-section w3-padding-jumbo">
+      <a href="SeanJonesCV.pdf" target="_self" class="w3-btn w3-padding-large w3-ripple w3-border w3-border-cyan w3-text-cyan w3-hover-cyan">
+        <i class="w3-xlarge w3-margin-right fa fa-download"></i>Download Resume</a>
+    </div>
+    
+    <!-- Testimonials --
+    <h3 class="w3-padding-24 w3-text-light-grey">My Reputation</h3>  
+    <img src="" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <p><span class="w3-large w3-margin-right">Andrew Jenkinson.</span> Owner of Andrew Jenkinson &amp; Co Accountants.</p>
+    <p>Jane Doe saved us from a web disaster.</p><br>
+    
+    <img src="" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:80px">
+    <p><span class="w3-large w3-margin-right">Paul Jones.</span> Owner of The Bridge Inn, Sheffield.</p>
+    <p>No one is better than Jane Doe.</p> -->
+  </section><!-- End About Section -->
+  
+  <!-- Portfolio Section -->
+  <section class="w3-padding-64 w3-container w3-content" id="work">
+    <h2 class="w3-text-light-grey">My Work</h2>
+    <hr style="width:200px" class="w3-opacity">
+
+    <!-- website display sections -->
+    <!-- ASJenkinson -->
+    <div class="w3-panel w3-row-padding w3-border-bottom w3-hover-shadow w3-padding-top animated" style="margin:0 -16px">
+      <div class="w3-third w3-container">
+        <h3>A.S.Jenkinson Website</h3>
+        <p>A.S.Jenkinson &amp; Co Chartered Accountants</p>
+        <button type="button" name="asjMore" value="More:" 
+          class="w3-btn w3-block w3-ripple w3-border w3-border-cyan w3-text-cyan w3-hover-cyan w3-large">
+          More<i class="fa fa-angle-right w3-padding-left"></i></button>
+      </div>
+      <div id="asjImage" class="w3-twothird w3-card-2 w3-hover-opacity">
+        <div class="w3-container">
+          <i class="fa fa-circle w3-padding-12 w3-opacity-min"></i>
+          <i class="fa fa-circle w3-padding-12 w3-opacity-max"></i>
+          <i class="fa fa-circle w3-padding-12 w3-opacity-max"></i>
+        </div>
+        <img src="images/ASJ_images/asjenkinson_home.png" alt="A.S.Jenkinson website home page" class="w3-image">
+      </div> 
+    </div> 
+      
+	<!-- Little Mill / Bridge Inn -->
+	<div class="w3-panel w3-row-padding w3-border-bottom w3-hover-shadow w3-padding-top animated hidden" style="margin:0 -16px">
+      <div class="w3-third w3-container w3-margin-top">
+        <h3>The Little Mill</h3>
+        <p>Paul Jones of the Little Mill Inn</p>
+        <button type="button" name="lmMore" value="More:"
+          class="w3-btn w3-block w3-ripple w3-border w3-border-cyan w3-text-cyan w3-hover-cyan w3-large">
+          More<i class="fa fa-angle-right w3-padding-left"></i></button>
+      </div>
+
+      <div id="lmImage" class="w3-twothird w3-card-2 w3-hover-opacity">
+        <div class="w3-container">
+          <i class="fa fa-circle w3-padding-12 w3-opacity-min"></i>
+          <i class="fa fa-circle w3-padding-12 w3-opacity-max"></i>
+          <i class="fa fa-circle w3-padding-12 w3-opacity-max"></i>
+        </div>
+        <img src="images/little_mill_images/littlemill_home_large.png" alt="Little Mill website home page" style="width:100%" class="w3-image">
+      </div>
+    </div><!-- End website displays -->      
+  </section><!-- End Portfolio Section -->
+
+  <!-- Contact Section -->
+  <section class="w3-padding-64 w3-container w3-content w3-center w3-text-grey" id="contact">
+    <h2 class="w3-text-light-grey">Contact Me</h2>
+    <hr style="width:200px" class="w3-opacity">
+
+    <div class="w3-section">
+      <p><span class="w3-padding w3-black w3-hover-text-cyan">
+        <i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i> Manchester, UK</span></p>
+      <p><a class="w3-btn w3-hover-text-cyan" href="tel:+447907624110">
+        <i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i> +44 7907 624 110</a></p>
+      <p><a class="w3-btn w3-hover-text-cyan" href="mailto:sean@webgeek.me.uk?Subject=Hello%20there">
+        <i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"></i> sean@webgeek.me.uk</a></p>
+    </div>
+    <button type="button" name="contactBtn" value="Lets get in touch!<br>Send me a direct message..."
+      class="w3-btn w3-section w3-padding-xlarge w3-margin w3-border w3-border-cyan w3-text-cyan w3-hover-cyan w3-ripple">
+      Lets get in touch!<br>Send me a direct message...</button> 
+  </section><!-- End Contact Section -->
+  
+  <!-- Footer -->
+  <footer class="w3-container w3-content w3-center w3-padding w3-text-grey w3-xlarge" style="">
+    <p class="w3-text-red w3-jumbo w3-wide game-text" style="margin:0;">GAME OVER</p>
+    <i class="fa fa-facebook-official w3-hover-text-indigo w3-padding"></i>
+    <i class="fa fa-twitter w3-hover-text-light-blue w3-padding"></i>
+    <a href="http://www.linkedin.com/in/seanthewebgeek" class="fa fa-linkedin w3-hover-text-indigo w3-padding" style="text-decoration:none"></a>
+    <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_self" class="w3-hover-text-cyan">w3.css</a> &amp; a touch of <a href="http://jquery.com/" target="_self" class="w3-hover-text-cyan">JQuery</a></p>
+  </footer> <!-- End footer -->
+
+  <!-- contact form modal -->
+  <section id="contactModal" class="w3-modal w3-container w3-padding-top">
+    <div class="w3-modal-content w3-card-8 w3-animate-opacity" style="max-width:700px">
+      
+      <header class="w3-container w3-center w3-cyan" style="height:65px">
+        <span class="w3-closebtn w3-hover-red w3-container w3-padding-large w3-display-topright w3-hide-small closeBtn" 
+          style="height:65px">&times;</span>
+        <span class="w3-closebtn w3-hover-red w3-container w3-padding w3-display-topright w3-hide-large w3-hide-medium closeBtn"
+          style="height:65px">&times;</span>
+        <h2 class="w3-hide-small">Send me a message:</h2>
+        <p class="w3-hide-large w3-hide-medium">Send a message:</p>
+      </header>
+  
+      <form class="w3-container w3-padding-top w3-padding-left w3-light-gray" 
+        action="php/sendMessage.php" method="post" name="contact_form"> 
+          
+		<div class="w3-row w3-section w3-padding-top">
+      	  <div class="w3-col w3-padding-top" style="width:50px"><i class="w3-xxlarge fa fa-user w3-text-cyan"></i></div>
+		  <div class="w3-rest">
+		    <input class="w3-input w3-border" name="name" type="text" placeholder="Name*" required>
+		  </div>
+		</div>
+
+		<div class="w3-row w3-section">
+		  <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-envelope-o w3-text-cyan"></i></div>
+		  <div class="w3-rest">
+		    <input class="w3-input w3-border" name="email" type="text" placeholder="Email*" required>
+		  </div>
+		</div>
+
+		<div class="w3-row w3-section">
+		  <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-phone w3-text-cyan"></i></div>
+		  <div class="w3-rest">
+ 		    <input class="w3-input w3-border" name="phone" type="text" placeholder="Phone">
+		  </div>
+		</div>
+		  
+		<div class="w3-row w3-section">
+		  <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-pencil w3-text-cyan"></i></div>
+		  <div class="w3-rest">
+ 		    <input class="w3-input w3-border" name="subject" type="text" placeholder="Subject*" required>
+		  </div>
+		</div>
+
+		<div class="w3-row w3-section">
+		  <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-pencil w3-text-cyan"></i></div>
+		  <div class="w3-rest">
+		    <textarea class="w3-input w3-border" name="message" placeholder="Message*" required rows="5" style="resize:none"></textarea>
+		  </div>
+		</div>
+		  
+		<p style="margin-left:50px">* required</p>
+		<!-- reCaptcha widget -->
+        <div class="g-recaptcha w3-center" data-sitekey="6LfCTUAUAAAAAJzQZ7LGsuB7EM7Rc90kHTklIS88"></div> 
+
+		<p class="w3-center">
+		  <input class="w3-btn w3-section w3-red w3-ripple" type="reset" value="Reset">
+		  <input class="w3-btn w3-section w3-green w3-ripple" type="submit" value="Send">		  
+		</p>
+      </form>        
+    </div> <!-- end modal content -->
+  </section> <!-- end #contactModal -->
+  
+  <!-- ASJ content modal -->
+  <section id="asjContentModal" class="w3-modal w3-container w3-padding-top">
+    <div class="w3-modal-content w3-card-8 w3-animate-opacity" style="max-width:900px">
+      
+      <header class="w3-container w3-center w3-cyan" style="height:65px">
+        <span class="w3-closebtn w3-hover-red w3-container w3-padding-large w3-display-topright closeBtn"style="height:65px">&times;</span>
+        <h2 style="padding-right:55px;">
+          <span class="w3-hide-small">A.S.Jenkinson Website</span>
+          <small class="w3-hide-large w3-hide-medium">A.S.J. Website</small></h2>        
+      </header>
+  
+  	  <article class="w3-container w3-white">
+  	    <div class="w3-panel">
+  	      <p>I designed and developed a website for Andrew Jenkinson, an accountant in Manchester. We met and spoke about his needs and requirements for his website and that started the design process. After we finalized a design I built the site from scratch working to agreed deadlines right up-to the launch day. I was also responsible for arranging his server requirements and uploading the site.</p>
+  	      <p><b>For:</b><br>Andrew Jenkinson at A.S.Jenkinson &amp; Co Accountants</p>
+  	      <p><b>Role:</b><br>Website Designer &amp; Developer</p>
+  	      <p><b>Date:</b><br>August 2015</p>
+  	      <a href="http://www.asjenkinsonchartered.co.uk" target="_self">www.ASJenkinsonChartered.co.uk</a>
+  	    </div>
+  	    <div class="w3-card-4 w3-section w3-center w3-border w3-border-cyan">
+  	      <img src="images/ASJ_images/asjenkinson_home.png" alt="A.S.Jenkinson home screen" class="w3-image">
+  	      <div class="w3-container w3-border-top w3-border-cyan">
+  	        <p>The whole site is built purely on HTML5 and CSS3.</p>
+  	      </div>
+  	    </div>
+  	    <div class="w3-card-4 w3-section w3-center w3-border w3-border-cyan">
+  	      <img src="images/ASJ_images/asjenkinson_content.png" alt="A.S.Jenkinson website content layout" class="w3-image">
+  	    </div>
+  	    <div class="w3-card-4 w3-section w3-center w3-border w3-border-cyan">
+  	      <img src="images/ASJ_images/asjenkinson_contactform.png" alt="A.S.Jenkinson website contact form uses PHP to hide any personal email address from available code" class="w3-image">
+  	      <div class="w3-container w3-border-top w3-border-cyan">
+  	        <p>The contact form uses a simple PHP script to hide the personal email address from any visible code for security reasons.</p>
+  	      </div>
+  	    </div>
+  	    <div class="w3-card-4 w3-section w3-center w3-border w3-border-cyan">
+  	      <img src="images/ASJ_images/asjenkinson_error.png" alt="A.S.Jenkinson contact form has PHP responses depending on result of sending the message" class="w3-image">
+  	      <div class="w3-container w3-border-top w3-border-cyan">
+  	        <p>PHP scripts have also been used to perform some validation on the contact form.</p>
+  	      </div>
+  	    </div>
+  	    <div class="w3-card-4 w3-section w3-center w3-border w3-border-cyan">
+  	      <img src="images/ASJ_images/asjenkinson_footer.png" alt="A.S.Jenkinson website footer" class="w3-image">
+  	    </div>
+  	  </article>        
+  	  
+  	  <footer class="w3-container w3-center	 w3-margin-bottom w3-cyan">
+        <button type="button" class="w3-btn w3-cyan w3-hover-red w3-container w3-padding-large closeBtn" style="width:50%;">Close</button>
+  	  </footer>
+  	  
+    </div> <!-- end modal content -->
+  </section> <!-- end #ASJmodal -->
+
+  <!-- LM content modal -->
+  <section id="lmContentModal" class="w3-modal w3-container w3-padding-top">
+    <div class="w3-modal-content w3-card-8 w3-animate-opacity" style="max-width:900px">
+      
+      <header class="w3-container w3-center w3-cyan" style="height:65px">
+        <span class="w3-closebtn w3-hover-red w3-container w3-padding-large w3-display-topright closeBtn"style="height:65px">&times;</span>
+        <h2 style="padding-right:55px;">
+          <span class="w3-hide-small">The Little Mill Inn Website</span>
+          <small class="w3-hide-large w3-hide-medium">Little Mill Website</small></h2>        
+      </header>
+  
+  	  <article class="w3-container w3-white">
+  	    <div class="w3-panel">
+  	      <p>I volunteered to modernize the Little Mills original website. I created a new design, and developed it into something not only more current and versatile but also suiting it to the business’s style a lot more. I am responsible for keeping an updated version of the site running on the server and handle any issues that may occur. I also setup their Facebook and Twitter profiles linking them all together for ease of updating. <br>He has recently moved to a new business location giving me the opportunity to re-make this site using new techniques I have learnt since.</p>
+  	      <p>For:<br>Paul Jones, Owner of the Little Mill Inn</p>
+  	      <p>Role:<br>Website Designer &amp; Developer</p>
+  	      <p>Date:<br>June 2015</p>
+  	      <a href="http://www.thelittlemill.co.uk" target="_self">www.thelittlemill.co.uk</a>
+  	    </div>
+  	    <div class="w3-card-4 w3-section w3-center w3-border w3-border-cyan">
+  	      <img src="images/little_mill_images/littlemill_home_large.png" alt="Little Mill large screen home page" class="w3-image">
+  	      <div class="w3-container w3-border-top w3-border-cyan">
+  	        <p>The site it made using pure HTML5 and CSS3 and uses a responsive design that adapts to the users viewport.</p>
+  	      </div>
+  	    </div>
+  	    <div class="w3-card-4 w3-section w3-center w3-border w3-border-cyan">
+  	      <img src="images/little_mill_images/littlemill_home_medium.png" alt="Little Mill medium screen home page" 
+  	        class="w3-image w3-border-left w3-border-right w3-border-cyan">
+  	      <div class="w3-container w3-border-top w3-border-cyan">
+  	        <p>The pages adjusts itself to a medium screen.</p>
+  	      </div>
+  	    </div>
+  	    <div class="w3-card-4 w3-section w3-center w3-border w3-border-cyan">
+  	      <img src="images/little_mill_images/littlemill_home_small.png" alt="Little mill small home screen" 
+  	        class="w3-image w3-border-left w3-border-right w3-border-cyan">
+  	      <div class="w3-container w3-border-top w3-border-cyan">
+  	        <p>The pages adjusts itself once more to a mobile friendly layout.</p>
+  	      </div>
+  	    </div>
+  	    <div class="w3-card-4 w3-section w3-center w3-border w3-border-cyan">
+  	      <img src="images/little_mill_images/littlemill_body.png" alt="Little Mill website body" class="w3-image">
+  	      <div class="w3-container w3-border-top w3-border-cyan">
+  	        <p>Only CSS3 is used to provide the simple navigation animation.</p>
+  	      </div>
+  	    </div>
+  	    <div class="w3-card-4 w3-section w3-center w3-border w3-border-cyan">
+  	      <img src="images/little_mill_images/littlemill_bandlist.png" alt="Little Mill website bandlist" class="w3-image">
+  	      <div class="w3-container w3-border-top w3-border-cyan">
+  	        <p>A custom font is used for the chalk text on the site.</p>
+  	      </div>
+  	    </div>
+  	    <div class="w3-card-4 w3-section w3-center w3-border w3-border-cyan">
+  	      <img src="images/little_mill_images/littlemill_footer.png" alt="Little Mill website footer" class="w3-image">
+  	      <div class="w3-container w3-border-top w3-border-cyan">
+  	        <p>The Facebook API provides instant updates from the Little Mills Facebook Page. This is a really easy way for the client to keep regular posts and it contributes towards better S.E.O.</p>
+  	      </div>
+  	    </div>
+  	    <div class="w3-card-4 w3-section w3-center w3-border w3-border-cyan">
+  	      <img src="images/little_mill_images/littlemill_googlemapplugin.png" alt="Little Mill google maps plugin" class="w3-image">
+  	      <div class="w3-container w3-border-top w3-border-cyan">
+  	        <p>The postcode for the Little Mill usually takes you to local farm so instead I used precise 
+			longitude and latitude co-ordinates with the Google map API to provide directions from the users current GPS location to the clients pub.</p>
+  	      </div>
+  	    </div>
+  	  </article>        
+  	  
+  	  <footer class="w3-container w3-margin-bottom w3-cyan w3-center">
+        <button type="button" class="w3-btn w3-cyan w3-hover-red w3-container w3-padding-large closeBtn" style="width:50%;">Close</button>
+  	  </footer>
+  	  
+    </div> <!-- end modal content -->
+  </section> <!-- end #lmContentModal -->
+  
+</div><!-- END PAGE CONTENT -->
+
+<!-- Intiate Google Analytics -->
+<script> 
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-98815491-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+// Function to compare current position against menu anchors to update active link in the menu
+function onScroll(event){
+    var scrollPos = $(document).scrollTop(); 
+    // Check if mobile menu is displayed to reference
+    if($('#myNavbar').is(':visible')) {
+      	$('#myNavbar a').each(function () {
+        	var currLink = $(this),
+	            refElement = $(currLink.attr('href'));
+	        // check if current element against menu and apply the active color
+	        if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
+		        $('#myNavbar a').removeClass('w3-black');
+     		    currLink.addClass('w3-black');
+        	} else {
+            	currLink.removeClass('w3-black');
+       	 	}// end if else
+      	});// end function()
+    } else {
+      	// If not mobile, then reference normal menu
+      	$('nav a').each(function () {
+        	var currLink = $(this),
+        	    refElement = $(currLink.attr('href'));
+        	// check if current element against menu and apply the active color
+        	if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
+          		$('nav a').removeClass('w3-black');
+          		currLink.addClass('w3-black');
+        	} else {
+          		currLink.removeClass('w3-black');
+        	}// end if else
+      	});// end function()
+    }// end if else
+}// end onScroll()
+
+// Function to apply animation once element is displayed on the bottom of the screen
+function animateBar(event){
+	var viewTop = $(document).scrollTop(),
+	    viewBottom = viewTop + $(window).height();
+	// Run function on any element with the 'animated' class added
+  	$('.animated').each(function() {
+        var currBar = $(this);
+        // Check if this element has moved onto the screen 
+        if (currBar.position().top  <= viewBottom) {
+        	// Make current element visible before animating
+        	currBar.css('visibility','visible');
+            // Apply CSS3 animation class
+            currBar.addClass('w3-animate-bottom');
+        }// end if
+    });// end each(function)
+}// end animateBar()
+
+// Show ASJ website showcase modal
+function showASJModal() {
+	$('#asjContentModal').css('display','block');
+}
+
+// Show LM website showcase modal
+function showLMModal() {
+	$('#lmContentModal').css('display','block');
+}
+
+// Show contact modal
+function showContact() {
+	$('#contactModal').css('display','block');
+}
+	
+// Load home page on intro click
+function loadPage() {
+	$('#loader').addClass('w3-hide');
+	$('#loader').css('display','none');
+	$('nav').removeClass('w3-hide');
+	$('#main').removeClass('w3-hide');
+	$('#myNavbar').removeClass('w3-hide');
+}
+
+// Close button clicked will close nearest parent with an ID
+function closeModal(event) {
+	$(this).closest('[id]').css('display','none');
+}
+
+// Smooth-scroll between anchors
+function smoothScroll(event) {
+  	event.preventDefault();      	
+    
+  	// remove active color on menu items
+  	$('a').each(function () {
+      	$(this).removeClass('w3-black');
+  	})// end function()
+  	// apply active color on clicked item
+  	$(this).addClass('w3-black');
+  
+  	// get clicked target anchor and animate move between current location and desired
+  	var target = this.hash,        
+  		$target = $(target);
+  	$('html, body').stop().animate({
+      	'scrollTop': $target.offset().top+2
+  	}, 500, 'swing', function () {
+      	window.location.hash = target;
+      	$(document).on('scroll', onScroll);
+  	});
+}// end smoothScroll
+
+// Document Ready
+$(document).ready(function () {
+  	// Scroll listerns
+  	$(document).on('scroll', onScroll); 
+  	$(document).on('scroll', animateBar);
+  	
+  	// Click listeners
+  	$('button[name="loadBtn"]').click(loadPage);
+  	$('button[name="asjMore"]').click(showASJModal);
+  	$('#asjImage').click(showASJModal);
+  	$('button[name="lmMore"]').click(showLMModal);
+  	$('#lmImage').click(showLMModal);
+  	$('button[name="contactBtn"]').click(showContact);
+  	$('.closeBtn').click(closeModal);
+   	$('a[href^="#"]').click(smoothScroll);
+ });// end document ready function()
+</script>
+
+</body>
+</html>

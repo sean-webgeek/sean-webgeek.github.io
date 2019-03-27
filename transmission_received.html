@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<title>Transmission Received!</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tranmission received confirmation page">
+
+<!-- Load W3.CSS stylesheet -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="typewriter_animation.css">
+
+<!-- Load favicon -Touch Icons - iOS and Android 2.1+ 64x64 pixels in size. --> 
+<link rel="apple-touch-icon-precomposed" href="images/favicon.ico">
+<!-- Load favicon on web browsers 64x64 pixels in size. -->
+<link rel="icon" href="images/favicon.ico">
+
+<style>
+  body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+    
+  /* load Game-Over font */
+  @font-face {
+    font-family:"Game Over";
+    src:url("font/game_over.eot?") format("eot"),
+        url("font/game_over.woff") format("woff"),
+        url("font/game_over.ttf") format("truetype"),
+        url("font/game_over.svg#Game-Over") format("svg");
+    font-weight:normal;
+    font-style:normal;
+  }
+  /* Apply 8-bit game font to text */
+  .game {font-family: 'Game Over'}
+  
+  /* Hide element and label it for Jquery animation trigger */
+  .animated {visibility:hidden} 
+ 
+</style>
+</head>
+
+<body class="w3-black">
+
+<div class="w3-padding-left w3-padding-right" id="main">
+
+  <section class="w3-content w3-center w3-padding w3-section">
+    <div class="w3-card-8 w3-animate-top">
+      
+      <header class="w3-container w3-green w3-text-black">
+        <h2 class="game w3-jumbo w3-wide w3-hide-small">TRANSMISSION RECEIVED!</h2>
+        <h2 class="game w3-wide w3-hide-large w3-hide-medium">TRANSMISSION RECEIVED!</h2>
+      </header>
+      
+      <section class="w3-container w3-padding-32 w3-border w3-border-green">
+        <p class="w3-padding w3-hide-small typewriter">Your communication has been sent to the Command Post...</p>
+        <p class="w3-padding w3-hide-medium w3-hide-large typewriter">Communication has been sent...</p>
+        <p class="w3-padding">You should be expecting a response within 24-48 hours.</p>
+        <p class="w3-padding">Keep up the good work soldier!</p>
+      </section>
+      
+      <footer class="w3-container w3-green w3-padding">
+        <a href="index.html" target="_self" 
+          class="w3-btn w3-xxxlarge w3-padding-bottom w3-green w3-text-black w3-border-bottom w3-border-black w3-wide game w3-hide-small">
+          RETURN TO PORTFOLIO</a>
+        <a href="index.html" target="_self" 
+          class="w3-btn w3-xlarge w3-padding-bottom w3-green w3-text-black w3-border-bottom w3-border-black w3-hover-border-black w3-wide game w3-hide-large w3-hide-medium">
+          RETURN TO PORTFOLIO</a>
+      </footer>   
+             
+    </div> <!-- end card --> 
+  </section> 
+   
+</div><!-- #main -->
+
+<script> 
+</script>
+
+</body>
+</html>
